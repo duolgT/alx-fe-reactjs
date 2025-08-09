@@ -1,5 +1,4 @@
-
-import UserProfile from ".UserProfile";
+import UserProfile from "./components/UserProfile";
 
 function App() {
   return (
