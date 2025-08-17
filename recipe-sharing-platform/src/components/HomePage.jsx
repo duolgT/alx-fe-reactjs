@@ -34,7 +34,7 @@ const HomePage = () => {
               <h2 className="text-xl font-semibold text-gray-800">
                 {recipe.title}
               </h2>
-              <p className="text-gray-600 mt-2">{recipe.description}</p>
+              <p className="text-gray-600 mt-2">{recipe.summary}</p>
 
               <button className="mt-4 w-full bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-600 transition-colors">
                 View Recipe
