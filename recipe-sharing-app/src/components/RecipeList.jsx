@@ -1,7 +1,7 @@
 // src/components/RecipeList.jsx
-'use client'; // add only if using Next.js App Router
 
-import { useRecipeStore } from '../Store/recipeStore';
+
+import { useRecipeStore } from './recipeStore';
 
 const RecipeList = () => {
   const recipes = useRecipeStore((state) => state.recipes);
