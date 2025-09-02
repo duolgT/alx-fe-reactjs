@@ -1,22 +1,26 @@
 // src/components/RecipeList.jsx
-import { useRecipeStore } from './store/recipeStore';
+'use client'; // add only if using Next.js App Router
+
+import { useRecipeStore } from '../Store/recipeStore';
 
 const RecipeList = () => {
   const recipes = useRecipeStore((state) => state.recipes);
 
+  if (recipes.length === 0) {
+    return <p className="text-gray-500">No recipes added yet.</p>;
+  }
+
   return (
-    <div>
-      <h2>Recipes</h2>
-      {recipes.length === 0 ? (
-        <p>No recipes yet!</p>
-      ) : (
-        recipes.map((recipe) => (
-          <div key={recipe.id} style={{ border: '1px solid #ccc', margin: '10px 0', padding: '10px' }}>
-            <h3>{recipe.title}</h3>
-            <p>{recipe.description}</p>
-          </div>
-        ))
-      )}
+    <div className="space-y-4">
+      {recipes.map((recipe) => (
+        <div
+          key={recipe.id}
+          className="border rounded-lg p-4 shadow-sm bg-white"
+        >
+          <h3 className="text-lg font-semibold">{recipe.title}</h3>
+          <p className="text-gray-700">{recipe.description}</p>
+        </div>
+      ))}
     </div>
   );
 };
