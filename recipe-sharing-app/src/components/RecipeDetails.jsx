@@ -1,59 +1,29 @@
-// src/components/RecipeDetails.jsx
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
-import DeleteRecipeButton from './DeleteRecipeButton';
-import { useRecipeStore } from './recipeStore';
+import { useParams } from "react-router-dom";
+import { useRecipeStore } from "./recipeStore";
+import EditRecipeForm from "./EditRecipeForm";
+import DeleteRecipeButton from "./DeleteRecipeButton";
 
-export default function RecipeDetails() {
+const RecipeDetails = () => {
   const { id } = useParams();
-  const recipe = useRecipeStore((s) => s.recipes.find((r) => r.id === id));
+  const recipe = useRecipeStore((state) =>
+    state.recipes.find((r) => r.id === parseInt(id))
+  );
 
   if (!recipe) {
-    return (
-      <div>
-        <p>Recipe not found.</p>
-        <Link to="/">Back to list</Link>
-      </div>
-    );
+    return <p>Recipe not found</p>;
   }
 
   return (
-    <div>
-      <h1>{recipe.title}</h1>
-      <p>{recipe.description}</p>
+    <div className="p-4 border rounded shadow-md">
+      <h1 className="text-2xl font-bold mb-2">{recipe.title}</h1>
+      <p className="mb-4">{recipe.description}</p>
+      <p className="text-sm text-gray-600 mb-4">Recipe ID: {recipe.id}</p>
 
-      <h3>Ingredients</h3>
-      {recipe.ingredients && recipe.ingredients.length ? (
-        <ul>
-          {recipe.ingredients.map((ing, i) => (
-            <li key={i}>{ing}</li>
-          ))}
-        </ul>
-      ) : (
-        <p><small>No ingredients provided.</small></p>
-      )}
-
-      <h3>Steps</h3>
-      {recipe.steps && recipe.steps.length ? (
-        <ol>
-          {recipe.steps.map((step, i) => (
-            <li key={i}>{step}</li>
-          ))}
-        </ol>
-      ) : (
-        <p><small>No steps provided.</small></p>
-      )}
-
-      <div style={{ marginTop: 12 }}>
-        <Link to={`/recipes/${id}/edit`} style={{ marginRight: 12 }}>
-          Edit Recipe
-        </Link>
-        <DeleteRecipeButton id={id} />
-      </div>
-
-      <div style={{ marginTop: 16 }}>
-        <Link to="/">← Back to all recipes</Link>
-      </div>
+      {/* Render Edit and Delete functionality */}
+      <EditRecipeForm recipe={recipe} />
+      <DeleteRecipeButton recipeId={recipe.id} />
     </div>
   );
-}
+};
+
+export default RecipeDetails;
